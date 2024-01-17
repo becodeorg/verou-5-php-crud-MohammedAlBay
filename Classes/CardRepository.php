@@ -28,13 +28,27 @@ class CardRepository
     public function get(): array
     {
         // TODO: Create an SQL query
+        $sqlQuery = "SELECT * FROM cards";
         // TODO: Use your database connection (see $databaseManager) and send your query to your database.
+        $result = $this->databaseManager->connection->query($sqlQuery);
         // TODO: fetch your data at the end of that action.
         // TODO: replace dummy data by real one
-        return [
-            ['name' => 'dummy one'],
-            ['name' => 'dummy two'],
-        ];
+        
+        // Check if the query was succesful:
+        if ($result) {
+            // Fetch all the data into an array
+            $cardsData = $result->fetchAll(PDO::FETCH_ASSOC); // FETCH_ASSOC fetches all the data as an associative array per default
+
+            include "overview.php";
+        } else {
+            echo "Error: Query execution failed.";
+        }
+        return $cardsData;
+
+        // return [
+        //     ['name' => 'dummy one'],
+        //     ['name' => 'dummy two'],
+        // ];
 
         // We get the database connection first, so we can apply our queries with it
         // return $this->databaseManager->connection-> (runYourQueryHere)
