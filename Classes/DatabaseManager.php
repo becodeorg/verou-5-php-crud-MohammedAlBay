@@ -30,6 +30,8 @@ class DatabaseManager
             $this->connection = new PDO($dsn, $this->user, $this->password);
             $this->connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION); // setting the error mode to handle exceptions and errors to be able to catch them
             $this->connection->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC); // setting the fetch mode to "associative arrays"
+
+            echo "Connection succesful!";
         } catch (PDOException $error) {
             echo "Connection failed: " . $error->getMessage();
         } finally {
