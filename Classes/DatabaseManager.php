@@ -25,6 +25,14 @@ class DatabaseManager
     public function connect(): void
     {
         // TODO: make the connection to the database
-        $this->connection = null;
+        try {
+            $dsn = "mysql:host=$this->host;dbname=$this->dbname"; // this can be merged with the other parameters below instead of assigning to $dsn first
+            $this->connection = new PDO($dsn, $this->user, $this->password);
+            $this->connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION); // setting the error mode to handle exceptions and errors to be able to catch them
+            $this->connection->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC); // setting the fetch mode to "associative arrays"
+        } catch (PDOException $error) {
+            echo "Connection failed: " . $error->getMessage();
+        }
+        $this->connection = null; // optional, as PHP will automatically close it when the script ends
     }
 }
