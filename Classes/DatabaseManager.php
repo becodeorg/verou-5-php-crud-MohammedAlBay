@@ -34,8 +34,6 @@ class DatabaseManager
             echo "Connection succesful!";
         } catch (PDOException $error) {
             echo "Connection failed: " . $error->getMessage();
-        } finally {
-            $this->connection = null; // optional, as PHP will automatically close it when the script ends
         }
     }
 }
