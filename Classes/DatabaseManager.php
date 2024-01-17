@@ -32,7 +32,8 @@ class DatabaseManager
             $this->connection->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC); // setting the fetch mode to "associative arrays"
         } catch (PDOException $error) {
             echo "Connection failed: " . $error->getMessage();
+        } finally {
+            $this->connection = null; // optional, as PHP will automatically close it when the script ends
         }
-        $this->connection = null; // optional, as PHP will automatically close it when the script ends
     }
 }
